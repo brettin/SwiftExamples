@@ -1,0 +1,73 @@
+
+////
+This file should be filtered with m4 first (for includes)
+Use ./mk-readme.sh
+////
+
+= Swift/T &amp; Python interface &amp; pandas
+
+:toc:
+
+== Settings
+
+Key settings are in +settings.sh+:
+----
+# SETTINGS
+# This file is read by the Makefile and shell scripts
+GCC492=/opt/gcc/4.9.2
+PYTHON_HOME=/lustre/beagle2/lpBuild/CANDLE/python/Python-2.7.12-inst
+TCL_HOME=/soft/swift-t/deps/tcl-8.6.5
+TCLSH=${TCL_HOME}/bin/tclsh
+----
+
+== Python executable
+
+=== test-py-pandas.sh
+
+[green]#WORKS#
+
+Login:
+----
+./test-py-pandas.sh
+----
+
+* Uses +try-pandas.py+
++
+----
+print("python: trying pandas...")
+import pandas
+print("python: pandas: success")
+----
+
+== C-Python interface
+
+[green]#WORKS#
+
+Login:
+----
+make pandas-lib.x
+./test-pandas-lib-x.sh
+----
+
+Uses:
+
++pandas-lib.c+:: A simple library that exposes function +try_python_pandas()+ that uses the +PyRun_String()+ to +import pandas+.
+
++pandas-lib-main.c+:: Simply calls +try_python_pandas()+ .
+
+== Tcl-C-Python interface
+
+FAILS
+
+Login:
+----
+make pkgIndex.tcl
+./test-pandas-tcl.sh
+----
+
+
+////
+Local Variables:
+mode: doc;
+End:
+////
